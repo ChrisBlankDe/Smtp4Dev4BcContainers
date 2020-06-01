@@ -2,7 +2,7 @@
 .SYNOPSIS
     Gets the IP of the smtp4dev container
 .DESCRIPTION
-    Long description #TODO
+    Inspect the smtp4dev Container and return the IP Address of the first network.
 .EXAMPLE
     Get-Smtp4DevContainerIp
 #>

@@ -1,8 +1,10 @@
 <#
 .SYNOPSIS
-    Creates a new container with smtp4dev
+    Creates or recreates a new container with smtp4dev
 .DESCRIPTION
-    # Long description #TODO
+    Creates a new container based on the latest smtp4dev image
+.PARAMETER Reset
+    Removes all the Cache from your local machine before recreating a new smtp4dev container
 .EXAMPLE
     New-Smtp4DevContainer
 .EXAMPLE
@@ -17,7 +19,7 @@ function New-Smtp4DevContainer {
      
         Remove-Smtp4DevContainer
         Write-Verbose "Pull Container"
-        docker pull rnwood/smtp4dev:v3 
+        $null = docker pull rnwood/smtp4dev 
         if ($Reset) {
             Write-Verbose "Remove Data dir '$smtp4devDataFolder'"
             remove-item $smtp4devDataFolder -Force -Recurse
@@ -28,7 +30,6 @@ function New-Smtp4DevContainer {
         #docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v $smtp4devDataFolder:c:/smtp4dev rnwood/smtp4dev 
          
         Write-Verbose "Create Container"
-        docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev 
-        #Write-Error "bla"
+        $null = docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev 
     }
 }

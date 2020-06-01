@@ -2,17 +2,21 @@
 .SYNOPSIS
     Sets the smtp4dev connection data in the given container
 .DESCRIPTION
-    Long description
+    Gets the smtp configuration from your smtp4dev container and inserts it into all tenants and all companies whithin the given container
+.PARAMETER ContainerName
+    Name of the container where you want to configure the smtp mail setup.
+    Default is 'navserver'
 .EXAMPLE
-    Set-InContainer
+    Set-Smtp4DevInBcContainer
 .EXAMPLE
-    Set-InContainer -containerName 'AnyBcContainer'
+    Set-Smtp4DevInBcContainer -ContainerName 'AnyBcContainer'
 #>
-function Set-InContainer {
+function Set-Smtp4DevInBcContainer {
     [CmdletBinding()]
+    [Alias("Set-Smtp4DevInNavContainer")]
     param(
-        [Parameter(Mandatory = $false)]
-        [string]$containerName = 'navserver'
+        [Parameter(Mandatory = $false, ValueFromPipeline)]
+        [string]$ContainerName = 'navserver'
     )
     begin {
         function Set-InDatabase {

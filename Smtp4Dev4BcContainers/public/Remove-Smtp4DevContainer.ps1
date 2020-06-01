@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes the smtp4dev container
 .DESCRIPTION
-    # Long description #TODO
+    Removes the smtp4dev container
 .EXAMPLE
     Remove-Smtp4DevContainer
 #>
