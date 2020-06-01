@@ -14,6 +14,7 @@
     # CLRVersion = ''
     # ProcessorArchitecture = ''
     # RequiredModules = @()
+	RequiredModules = @("navcontainerhelper")
     # RequiredAssemblies = @()
     # ScriptsToProcess = @()
     # TypesToProcess = @()
