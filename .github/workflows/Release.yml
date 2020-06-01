@@ -27,6 +27,9 @@ jobs:
       env:
         PSGALLERY_TOKEN: ${{secrets.PSGALLERY_TOKEN}}
       run: |
+        #InstallDependency Modules:
+        Install-Module navcontainerhelper
+        
         $ModuleName = 'Smtp4Dev4BcContainers'
         $ModulPath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath $ModuleName
         Import-Module $ModulPath -Force
