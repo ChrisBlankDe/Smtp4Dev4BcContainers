@@ -25,7 +25,7 @@ jobs:
         PSGALLERY_TOKEN: ${{secrets.PSGALLERY_TOKEN}}
       run: |
         $ModuleName = 'Smtp4Dev4BcContainers'
-        $ModulPath = Join-Path -Path (split-path $PSCommandPath) -ChildPath $ModuleName
+        $ModulPath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath $ModuleName
         Import-Module $ModulPath -Force
         
         #Set Version
