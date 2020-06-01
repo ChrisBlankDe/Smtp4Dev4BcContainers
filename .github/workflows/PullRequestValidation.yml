@@ -1,0 +1,17 @@
+name: PullRequestValidation
+on: [pull_request]
+
+jobs:
+  build:
+    name: Module imports on all platforms
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Perform the import
+      shell: pwsh
+      run: Import-Module ./Smtp4Dev4BcContainers.psd1 -ErrorAction Stop
