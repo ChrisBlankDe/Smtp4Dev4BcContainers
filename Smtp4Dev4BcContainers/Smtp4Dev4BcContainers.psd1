@@ -1,6 +1,6 @@
 @{
     RootModule = 'Smtp4Dev4BcContainers.psm1'
-    ModuleVersion = '0.1.0.0'
+    ModuleVersion = '1.0.0.0'
     # CompatiblePSEditions = @()
     GUID = '40db8432-1e45-47d6-82f7-b1084f02c25c'
     Author = 'Chris Blank'
