@@ -13,10 +13,6 @@ Create smtp4dev Container
 ````powershell
 New-Smtp4DevContainer
 ````
-Test smtp4dev Container
-````powershell
-Test-Smtp4DevContainer
-````
 Set Configuration in your Business Central container
 ````powershell
 Set-Smtp4DevInBcContainer -containerName navserver
@@ -26,3 +22,4 @@ Now you can open smtp4dev on port 3000: http://localhost:3000
 # Knowen Issues ans planned improvements
 * When smtp4dev container gets a new IP address ````Set-Smtp4DevInBcContainer```` must be executed.
 * Currently smtp4dev can only be addressed throu ip. Implement something like ````updateHosts```` from navcontainerhelper later.
+* Create a shortcut on desktop or startmenu
