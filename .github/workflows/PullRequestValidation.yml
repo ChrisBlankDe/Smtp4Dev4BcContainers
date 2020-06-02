@@ -14,4 +14,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Perform the import
       shell: pwsh
-      run: Import-Module ./Smtp4Dev4BcContainers.psd1 -ErrorAction Stop
+      run: 
+        $ModuleName = 'Smtp4Dev4BcContainers'
+        $ModulPath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath $ModuleName
+        Import-Module $ModulPath -Force -ErrorAction Stop
