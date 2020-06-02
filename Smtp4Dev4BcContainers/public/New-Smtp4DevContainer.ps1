@@ -16,8 +16,14 @@ function New-Smtp4DevContainer {
         [switch]$Reset
     )
     process {
-     
+        #region CheckIfNavContainerHelperIsInstalled
+        if (-not (Get-InstalledModule -Name navcontainerhelper -ErrorAction SilentlyContinue)) {
+            Write-Error "navcontainerhelper is not installed." -ErrorAction Stop
+        }
+        #endregion CheckIfNavContainerHelperIsInstalled
+
         Remove-Smtp4DevContainer
+        
         Write-Verbose "Pull Container"
         $null = docker pull rnwood/smtp4dev 
         if ($Reset) {
