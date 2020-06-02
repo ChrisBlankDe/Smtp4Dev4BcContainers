@@ -3,6 +3,8 @@
     Creates or recreates a new container with smtp4dev
 .DESCRIPTION
     Creates a new container based on the latest smtp4dev image
+.PARAMETER Shortcut
+    Removes all the Cache from your local machine before recreating a new smtp4dev container
 .PARAMETER Reset
     Removes all the Cache from your local machine before recreating a new smtp4dev container
 .EXAMPLE
@@ -13,6 +15,8 @@
 function New-Smtp4DevContainer {
     [CmdletBinding()]
     param(
+        [ValidateSet('None', 'Desktop', 'StartMenu', 'Startup', 'CommonDesktop', 'CommonStartMenu', 'CommonStartup', 'DesktopFolder', 'CommonDesktopFolder')]
+        [string]$Shortcut = "Desktop",
         [switch]$Reset
     )
     process {
@@ -37,5 +41,9 @@ function New-Smtp4DevContainer {
          
         Write-Verbose "Create Container"
         $null = docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev 
+        
+        Write-Verbose "Create Shortcut"
+        $ShortcutTarget = "http://localhost:3000"
+        New-DesktopShortcut -Name $ShortcutTitle -TargetPath $ShortcutTarget -Shortcuts $Shortcut -IconLocation "C:\Program Files\Internet Explorer\iexplore.exe, 3"
     }
 }

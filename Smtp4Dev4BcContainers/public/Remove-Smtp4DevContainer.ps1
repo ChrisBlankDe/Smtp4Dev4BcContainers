@@ -15,5 +15,6 @@ function Remove-Smtp4DevContainer {
             Write-Verbose "Removing existing smtp4dev Container"
             $null = docker rm $existingContainer -f
         }
+        Remove-DesktopShortcut -Name $ShortcutTitle
     }
 }
