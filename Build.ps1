@@ -23,6 +23,26 @@ if (-not (Get-InstalledModule PSScriptAnalyzer)) {
 gci (Join-Path $ModulPath $ModuleName) -filter "*.ps1" -Exclude "*.tests.ps1" -Recurse | Invoke-ScriptAnalyzer -Fix
 #endregion RunScriptAnalyzer
 
+#region RefreshDocs
+if (-not (Get-InstalledModule platyPS)) {
+    Install-Module -Name platyPS -Scope CurrentUser
+}
+Import-Module platyPS
+$DocsPath = Join-Path $ModulPath -ChildPath "docs\"
+$null = mkdir $DocsPath -ErrorAction SilentlyContinue
+if(gci $DocsPath -filter "*.md"){
+    $null = Update-MarkdownHelpModule -Path $DocsPath -RefreshModulePage -UpdateInputOutput
+} else {
+    New-MarkdownHelp -Module $ModuleName -OutputFolder $DocsPath -HelpVersion $NewVersion -WithModulePage
+}
+
+#Fix mixed language due to my german system
+$DocFiles = $DocsPath | gci -filter "*.md"
+foreach($DocFile in $DocFiles){
+    ($DocFile | get-content -Raw).Replace('### BEISPIEL','### EXAMPLE') | Set-Content -Path $DocFile.FullName
+}
+#endregion RefreshDocs
+
 #region ValidateThatModuleIsImportable
 #Do this again since we changed some files in the Build Process
 Import-Module $ModulPath -Force
