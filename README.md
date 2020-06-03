@@ -5,6 +5,7 @@ Smtp4Dev4BcContainers is a PowerShell module allowes you to easily create a [smt
 You must have installed [navcontianerhelper](https://github.com/microsoft/navcontainerhelper) and administrative rights on the machine you running this module.
 
 # How to use
+## Quick Start
 Install the Module
 ````powershell
 Install-Module -Name Smtp4Dev4BcContainers
@@ -18,6 +19,9 @@ Set Configuration in your Business Central container
 Set-Smtp4DevInBcContainer -containerName navserver
 ````
 Now you can open smtp4dev on port 3000: http://localhost:3000
+
+## Module and function documentation
+You can find the full (automatic generated) module documentation with all function [here](docs/Smtp4Dev4BcContainers.md).
 
 # Knowen Issues ans planned improvements
 * When smtp4dev container gets a new IP address ````Set-Smtp4DevInBcContainer```` must be executed.
