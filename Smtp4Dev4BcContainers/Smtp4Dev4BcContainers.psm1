@@ -1,3 +1,5 @@
+$ErrorActionPreference = 'Stop' #Thanks to scoping in posh this should only affect procedures in this module
+
 $Smtp4DevDataFolder = "C:\ProgramData\Smtp4Dev"
 $Smtp4DevContainerName = "smtp4dev"
 $ShortcutTitle = "smtp4dev"
