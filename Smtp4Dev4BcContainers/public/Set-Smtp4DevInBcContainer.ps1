@@ -26,7 +26,7 @@ function Set-Smtp4DevInBcContainer {
                 Write-Verbose "Found Table '$Table'"
                 Write-Verbose "Read current Configuration"
                 $query = 'select * from [{0}]' -f $Table
-                Write-Host "Current Configuration for Table '$Table' in Database '$DatabaseName'"
+                Write-Verbose "Current Configuration for Table '$Table' in Database '$DatabaseName'"
                 Write-Verbose "Execute Query: $query"
                 $CurrentConfig = Invoke-ScriptInBCContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
                 $CurrentConfig
