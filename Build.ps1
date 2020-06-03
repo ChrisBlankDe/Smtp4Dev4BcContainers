@@ -1,5 +1,7 @@
-$ModulPath = (split-path $PSCommandPath)
+
 $ModuleName = 'Smtp4Dev4BcContainers'
+$repoRootDir = (split-path $PSCommandPath)
+$ModulPath = join-path $repoRootDir -ChildPath $ModuleName 
 
 #region ValidateThatModuleIsImportable
 Import-Module $ModulPath -Force
@@ -20,7 +22,7 @@ Update-ModuleManifest -Path $ManifestPath -ModuleVersion $NewVersion -Verbose
 if (-not (Get-InstalledModule PSScriptAnalyzer)) {
     Install-Module -Name PSScriptAnalyzer -Scope CurrentUser
 }
-gci (Join-Path $ModulPath $ModuleName) -filter "*.ps1" -Exclude "*.tests.ps1" -Recurse | Invoke-ScriptAnalyzer -Fix
+gci (Join-Path $ModulPath $ModuleName) -filter "*.ps1" -Recurse | Invoke-ScriptAnalyzer -Fix
 #endregion RunScriptAnalyzer
 
 #region RefreshDocs
@@ -28,7 +30,7 @@ if (-not (Get-InstalledModule platyPS)) {
     Install-Module -Name platyPS -Scope CurrentUser
 }
 Import-Module platyPS
-$DocsPath = Join-Path $ModulPath -ChildPath "docs\"
+$DocsPath = Join-Path $repoRootDir -ChildPath "docs\"
 $null = mkdir $DocsPath -ErrorAction SilentlyContinue
 if(gci $DocsPath -filter "*.md"){
     $null = Update-MarkdownHelpModule -Path $DocsPath -RefreshModulePage -UpdateInputOutput
