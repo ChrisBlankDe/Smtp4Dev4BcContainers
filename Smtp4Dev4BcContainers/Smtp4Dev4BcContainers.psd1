@@ -1,4 +1,4 @@
-@{
+﻿@{
     RootModule        = 'Smtp4Dev4BcContainers.psm1'
     ModuleVersion     = '1.0.0.0'
     # CompatiblePSEditions = @()
@@ -36,8 +36,8 @@
             # Prerelease = ''
             # RequireLicenseAcceptance = $false
             # ExternalModuleDependencies = @()
-        } 
-    } 
+        }
+    }
     HelpInfoURI       = 'https://github.com/ChrisBlankDe/Smtp4Dev4BcContainers/issues'
     # DefaultCommandPrefix = ''
 }
