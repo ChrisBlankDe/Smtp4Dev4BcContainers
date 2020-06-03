@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Creates or recreates a new container with smtp4dev
 .DESCRIPTION
@@ -27,21 +27,21 @@ function New-Smtp4DevContainer {
         #endregion CheckIfNavContainerHelperIsInstalled
 
         Remove-Smtp4DevContainer
-        
+
         Write-Verbose "Pull Container"
-        $null = docker pull rnwood/smtp4dev 
+        $null = docker pull rnwood/smtp4dev
         if ($Reset) {
             Write-Verbose "Remove Data dir '$smtp4devDataFolder'"
             remove-item $smtp4devDataFolder -Force -Recurse
         }
         Write-Verbose "Create Data dir '$smtp4devDataFolder' if not exists"
         $null = mkdir $smtp4devDataFolder -ErrorAction SilentlyContinue
-   
-        #docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v $smtp4devDataFolder:c:/smtp4dev rnwood/smtp4dev 
-         
+
+        #docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v $smtp4devDataFolder:c:/smtp4dev rnwood/smtp4dev
+
         Write-Verbose "Create Container"
-        $null = docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev 
-        
+        $null = docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev
+
         Write-Verbose "Create Shortcut"
         $ShortcutTarget = "http://localhost:3000"
         New-DesktopShortcut -Name $ShortcutTitle -TargetPath $ShortcutTarget -Shortcuts $Shortcut -IconLocation "C:\Program Files\Internet Explorer\iexplore.exe, 3"

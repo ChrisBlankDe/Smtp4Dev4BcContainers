@@ -11,4 +11,5 @@ $ShortcutTitle = "smtp4dev"
 . (Join-Path $PSScriptRoot "public\Remove-Smtp4DevContainer.ps1")
 . (Join-Path $PSScriptRoot "public\Set-Smtp4DevInBcContainer.ps1")
 . (Join-Path $PSScriptRoot "public\Test-Smtp4DevContainer.ps1")
+
 try { Test-ModuleVersion } catch { }

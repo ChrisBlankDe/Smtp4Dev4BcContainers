@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Tests the smtp4dev container
 .DESCRIPTION
@@ -26,7 +26,7 @@ function Test-Smtp4DevContainer {
         else {
             Write-Error "Container '$Smtp4DevContainerName' is not running. Current status is '$($Inspect.Status)'."
         }
-      
+
         try {
             Write-Verbose "Sending a test mail"
             Send-MailMessage -SmtpServer $(Get-Smtp4DevContainerIp) -Port 25 -Subject "Smtp4Dev4BcContainers Test Mail" -Body "Hope you like it :)" -To "receiver@Smtp4Dev4BcContainers.io" -From "sender@Smtp4Dev4BcContainers.io"
@@ -35,6 +35,6 @@ function Test-Smtp4DevContainer {
         catch {
             throw
         }
-        
+
     }
 }
