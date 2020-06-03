@@ -21,7 +21,7 @@ function Set-Smtp4DevInBcContainer {
     begin {
         function Set-InDatabase {
             param($containerName, $DatabaseName)
-            $Tables = (Invoke-ScriptInBCContainer -containerName navserver { param($DatabaseName) Invoke-Sqlcmd -Query "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%SMTP Mail Setup%'" -Database $DatabaseName } -argumentList @($DatabaseName)).TABLE_NAME
+            $Tables = (Invoke-ScriptInBCContainer -containerName $ContainerName { param($DatabaseName) Invoke-Sqlcmd -Query "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%SMTP Mail Setup%'" -Database $DatabaseName } -argumentList @($DatabaseName)).TABLE_NAME
             foreach ($Table in $Tables) {
                 Write-Verbose "Found Table '$Table'"
                 Write-Verbose "Read current Configuration"
