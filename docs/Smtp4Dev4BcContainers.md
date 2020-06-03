@@ -8,7 +8,7 @@ Locale: en-US
 
 # Smtp4Dev4BcContainers Module
 ## Description
-Smtp4Dev4BcContainers is a PowerShell module allowes you to easily create a [smtp4dev](https://github.com/rnwood/smtp4dev) container and set the required configurations in you Business Central containers.
+Smtp4Dev4BcContainers is a PowerShell module allowes you to easily create a smtp4dev container and set the required configurations in you Business Central containers.
 
 ## Smtp4Dev4BcContainers Cmdlets
 ### [Get-Smtp4DevContainerIp](Get-Smtp4DevContainerIp.md)
@@ -25,3 +25,5 @@ Sets the smtp4dev connection data in the given container
 
 ### [Test-Smtp4DevContainer](Test-Smtp4DevContainer.md)
 Tests the smtp4dev container
+
+
