@@ -9,7 +9,6 @@
 function Test-Smtp4DevContainer {
     [CmdletBinding()]
     param(
-        [switch]$Reset
     )
     process {
         $result = docker ps -a --format "{{.Names}}" | Where-Object { $_ -eq $Smtp4DevContainerName }
