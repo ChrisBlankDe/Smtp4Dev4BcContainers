@@ -4,13 +4,21 @@
 .DESCRIPTION
     Creates a new container based on the latest smtp4dev image
 .PARAMETER Shortcut
-    Removes all the Cache from your local machine before recreating a new smtp4dev container
+    Defines where to create the shortcut
 .PARAMETER Reset
     Removes all the Cache from your local machine before recreating a new smtp4dev container
+.PARAMETER LocalUiPort
+    Defines to what local port the smtp4dev UI will be redirected
+.PARAMETER LocalSmtpPort
+    Defines to what local port smtp will be redirected
 .EXAMPLE
     New-Smtp4DevContainer
 .EXAMPLE
     New-Smtp4DevContainer -Reset
+.EXAMPLE
+    New-Smtp4DevContainer -Shortcut CommonStartMenu
+.EXAMPLE
+    New-Smtp4DevContainer -LocalSmtpPort 25 -LocalUiPort 80
 #>
 function New-Smtp4DevContainer {
     [CmdletBinding()]
@@ -45,7 +53,7 @@ function New-Smtp4DevContainer {
         Write-Verbose "Create Data dir '$smtp4devDataFolder' if not exists"
         $null = mkdir $smtp4devDataFolder -ErrorAction SilentlyContinue
         Write-Verbose "Create Container"
-        $null = Invoke-Docker -imageName "rnwood/smtp4dev" -command run -parameters @("-p $($LocalUiPort):80", "-p $($LocalSmtpPort):25", "-v C:\ProgramData\smtp4dev:C:\smtp4dev", "--name $Smtp4DevContainerName", "--hostname $Smtp4DevContainerName", "--detach") 
+        $null = Invoke-Docker -imageName "rnwood/smtp4dev" -command run -parameters @("-p $($LocalUiPort):80", "-p $($LocalSmtpPort):25", "-v C:\ProgramData\smtp4dev:C:\smtp4dev", "--name $Smtp4DevContainerName", "--hostname $Smtp4DevContainerName", "--detach")
         #$null = docker run -d -p $($LocalUiPort):80 -p $($LocalSmtpPort):25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev
 
         Write-Verbose "Create Shortcut"

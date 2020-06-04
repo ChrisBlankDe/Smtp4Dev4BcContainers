@@ -1,4 +1,4 @@
-#Src: https://github.com/microsoft/navcontainerhelper/blob/master/HelperFunctions.ps1
+﻿#Src: https://github.com/microsoft/navcontainerhelper/blob/master/HelperFunctions.ps1
 function Invoke-Docker {
     Param(
         [Parameter(Mandatory = $true)]
@@ -23,11 +23,11 @@ function Invoke-Docker {
 
     $errtask = $process.StandardError.ReadToEndAsync()
     $err = ""
-    
+
     do {
         Start-Sleep -Milliseconds 100
     } while (!($process.HasExited))
-    
+
     $err = $errtask.Result
     $process.WaitForExit();
 

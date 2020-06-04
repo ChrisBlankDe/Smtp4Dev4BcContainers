@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Sets the smtp4dev connection data in the given container
 .DESCRIPTION
@@ -21,20 +21,20 @@ function Set-Smtp4DevInBcContainer {
     begin {
         function Set-InDatabase {
             param($containerName, $DatabaseName)
-            $Tables = (Invoke-ScriptInBCContainer -containerName $ContainerName { param($DatabaseName) Invoke-Sqlcmd -Query "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%SMTP Mail Setup%'" -Database $DatabaseName } -argumentList @($DatabaseName)).TABLE_NAME
+            $Tables = (Invoke-ScriptInNavContainer -containerName $ContainerName { param($DatabaseName) Invoke-Sqlcmd -Query "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%SMTP Mail Setup%'" -Database $DatabaseName } -argumentList @($DatabaseName)).TABLE_NAME
             foreach ($Table in $Tables) {
                 Write-Verbose "Found Table '$Table'"
                 Write-Verbose "Read current Configuration"
                 $query = 'select * from [{0}]' -f $Table
                 Write-Verbose "Current Configuration for Table '$Table' in Database '$DatabaseName'"
                 Write-Verbose "Execute Query: $query"
-                $CurrentConfig = Invoke-ScriptInBCContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
+                $CurrentConfig = Invoke-ScriptInNavContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
                 $CurrentConfig
 
                 Write-Verbose "Write new Configuration"
                 $query = "UPDATE [{0}] SET [SMTP Server] = '{1}',[Authentication] = 0,[SMTP Server Port]={2},[Secure Connection] = 0" -f $Table, $Smtp4DevContainerName, 25
                 Write-Verbose "Execute Query: $query"
-                Invoke-ScriptInBCContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
+                Invoke-ScriptInNavContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
             }
         }
     }
