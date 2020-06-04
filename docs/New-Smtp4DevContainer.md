@@ -13,7 +13,8 @@ Creates or recreates a new container with smtp4dev
 ## SYNTAX
 
 ```
-New-Smtp4DevContainer [[-Shortcut] <String>] [-Reset] [<CommonParameters>]
+New-Smtp4DevContainer [[-Shortcut] <String>] [-Reset] [[-LocalUiPort] <Int32>] [[-LocalSmtpPort] <Int32>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -59,6 +60,36 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LocalUiPort
+{{ Fill LocalUiPort Description }}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: 3000
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LocalSmtpPort
+{{ Fill LocalSmtpPort Description }}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: 2525
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

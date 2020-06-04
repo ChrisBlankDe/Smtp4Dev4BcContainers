@@ -2,9 +2,10 @@ $ErrorActionPreference = 'Stop' #Thanks to scoping in posh this should only affe
 
 $Smtp4DevDataFolder = "C:\ProgramData\Smtp4Dev"
 $Smtp4DevContainerName = "smtp4dev"
-$ShortcutTitle = "smtp4dev"
+$ShortcutTitle = "Smtp4Dev4BcContainers"
 
 . (Join-Path $PSScriptRoot "private\Test-ModuleVersion.ps1")
+. (Join-Path $PSScriptRoot "private\Invoke-Docker.ps1")
 
 . (Join-Path $PSScriptRoot "public\Get-Smtp4DevContainerIp.ps1")
 . (Join-Path $PSScriptRoot "public\New-Smtp4DevContainer.ps1")

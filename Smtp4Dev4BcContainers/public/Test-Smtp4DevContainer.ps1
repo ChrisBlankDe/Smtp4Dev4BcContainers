@@ -9,7 +9,6 @@
 function Test-Smtp4DevContainer {
     [CmdletBinding()]
     param(
-        [switch]$Reset
     )
     process {
         $result = docker ps -a --format "{{.Names}}" | Where-Object { $_ -eq $Smtp4DevContainerName }
@@ -20,11 +19,11 @@ function Test-Smtp4DevContainer {
             Write-Error "Container '$Smtp4DevContainerName' does not exist." -ErrorAction Stop
         }
         $Inspect = docker inspect $Smtp4DevContainerName | ConvertFrom-Json
-        if ($Inspect.Status -eq "running") {
+        if ($Inspect.State.Status -eq "running") {
             Write-Verbose "Container '$Smtp4DevContainerName' is running."
         }
         else {
-            Write-Error "Container '$Smtp4DevContainerName' is not running. Current status is '$($Inspect.Status)'."
+            Write-Error "Container '$Smtp4DevContainerName' is not running. Current status is '$($Inspect.State.Status)'."
         }
 
         try {

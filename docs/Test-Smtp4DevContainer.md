@@ -13,7 +13,7 @@ Tests the smtp4dev container
 ## SYNTAX
 
 ```
-Test-Smtp4DevContainer [-Reset] [<CommonParameters>]
+Test-Smtp4DevContainer [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,21 +27,6 @@ Test-Smtp4DevContainer
 ```
 
 ## PARAMETERS
-
-### -Reset
-{{ Fill Reset Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
