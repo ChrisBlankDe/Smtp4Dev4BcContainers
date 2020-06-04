@@ -15,9 +15,17 @@
 function New-Smtp4DevContainer {
     [CmdletBinding()]
     param(
+        [parameter(Mandatory = $false)]
         [ValidateSet('None', 'Desktop', 'StartMenu', 'Startup', 'CommonDesktop', 'CommonStartMenu', 'CommonStartup', 'DesktopFolder', 'CommonDesktopFolder')]
         [string]$Shortcut = "Desktop",
-        [switch]$Reset
+        [parameter(Mandatory = $false)]
+        [switch]$Reset,
+        [parameter(Mandatory = $false)]
+        [ValidateRange(1, [Int32]::MaxValue)]
+        [Int32]$LocalUiPort = 3000,
+        [parameter(Mandatory = $false)]
+        [ValidateRange(1, [Int32]::MaxValue)]
+        [Int32]$LocalSmtpPort = 2525
     )
     process {
         #region CheckIfNavContainerHelperIsInstalled
@@ -29,21 +37,28 @@ function New-Smtp4DevContainer {
         Remove-Smtp4DevContainer
 
         Write-Verbose "Pull Container"
-        $null = docker pull rnwood/smtp4dev
+        $null = Invoke-Docker -imageName "rnwood/smtp4dev" -command pull
         if ($Reset) {
             Write-Verbose "Remove Data dir '$smtp4devDataFolder'"
             remove-item $smtp4devDataFolder -Force -Recurse
         }
         Write-Verbose "Create Data dir '$smtp4devDataFolder' if not exists"
         $null = mkdir $smtp4devDataFolder -ErrorAction SilentlyContinue
-
-        #docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v $smtp4devDataFolder:c:/smtp4dev rnwood/smtp4dev
-
         Write-Verbose "Create Container"
-        $null = docker run -d -p 3000:80 -p 2525:25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev
+        $null = Invoke-Docker -imageName "rnwood/smtp4dev" -command run -parameters @("-p $($LocalUiPort):80", "-p $($LocalSmtpPort):25", "-v C:\ProgramData\smtp4dev:C:\smtp4dev", "--name $Smtp4DevContainerName", "--hostname $Smtp4DevContainerName", "--detach") 
+        #$null = docker run -d -p $($LocalUiPort):80 -p $($LocalSmtpPort):25 --name smtp4dev -v C:\ProgramData\smtp4dev:C:\smtp4dev rnwood/smtp4dev
 
         Write-Verbose "Create Shortcut"
-        $ShortcutTarget = "http://localhost:3000"
-        New-DesktopShortcut -Name $ShortcutTitle -TargetPath $ShortcutTarget -Shortcuts $Shortcut -IconLocation "C:\Program Files\Internet Explorer\iexplore.exe, 3"
+        $ShortcutTarget = "http://localhost:$LocalUiPort"
+
+        try {
+            $IconLocation = Join-Path -Path $smtp4devDataFolder -ChildPath "icon.ico"
+            Invoke-WebRequest -OutFile $IconLocation -Uri "https://raw.githubusercontent.com/rnwood/smtp4dev/v2.0.10/Rnwood.Smtp4dev/Resources/Icon1.ico" -TimeoutSec 5
+        }
+        catch {
+            Write-Verbose "Icon Download failed for some reason. Fallback to iex icon"
+            $IconLocation = "C:\Program Files\Internet Explorer\iexplore.exe, 3"
+        }
+        New-DesktopShortcut -Name $ShortcutTitle -TargetPath $ShortcutTarget -Shortcuts $Shortcut -IconLocation $IconLocation
     }
 }

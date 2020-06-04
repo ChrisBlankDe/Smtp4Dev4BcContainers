@@ -32,8 +32,7 @@ function Set-Smtp4DevInBcContainer {
                 $CurrentConfig
 
                 Write-Verbose "Write new Configuration"
-                $SmtpServerName = Get-Smtp4DevContainerIp
-                $query = "UPDATE [{0}] SET [SMTP Server] = '{1}',[Authentication] = 0,[SMTP Server Port]=25,[Secure Connection] = 0" -f $Table, $SmtpServerName
+                $query = "UPDATE [{0}] SET [SMTP Server] = '{1}',[Authentication] = 0,[SMTP Server Port]={2},[Secure Connection] = 0" -f $Table, $Smtp4DevContainerName, 25
                 Write-Verbose "Execute Query: $query"
                 Invoke-ScriptInBCContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
             }
