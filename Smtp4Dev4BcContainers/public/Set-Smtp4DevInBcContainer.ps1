@@ -29,15 +29,20 @@ function Set-Smtp4DevInBcContainer {
                 Write-Verbose "Found Table '$Table'"
                 Write-Verbose "Read current Configuration"
                 $query = 'select * from [{0}]' -f $Table
-                Write-Verbose "Current Configuration for Table '$Table' in Database '$DatabaseName'"
                 Write-Verbose "Execute Query: $query"
                 $CurrentConfig = Invoke-ScriptInNavContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
-                $CurrentConfig
+                Write-Verbose "Old Configuration: $($CurrentConfig| Select-Object -Property * -ExcludeProperty timestamp,'$systemId',PSComputerName,RunspaceId,PSShowComputerName,'Primary Key'  | ConvertTo-Json -Compress)"
 
                 Write-Verbose "Write new Configuration"
                 $query = "UPDATE [{0}] SET [SMTP Server] = '{1}',[Authentication] = 0,[SMTP Server Port]={2},[Secure Connection] = 0" -f $Table, $Smtp4DevContainerName, 25
                 Write-Verbose "Execute Query: $query"
                 Invoke-ScriptInNavContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
+
+                $query = 'select * from [{0}]' -f $Table
+                Write-Verbose "Execute Query: $query"
+                $CurrentConfig = Invoke-ScriptInNavContainer -containerName $containerName -scriptblock { param($Query, $DatabaseName)Invoke-Sqlcmd -Query $Query -Database $DatabaseName } -argumentList @($query, $DatabaseName)
+                Write-Verbose "New Configuration: $($CurrentConfig| Select-Object -Property * -ExcludeProperty timestamp,'$systemId',PSComputerName,RunspaceId,PSShowComputerName,'Primary Key' | ConvertTo-Json -Compress)"
+
             }
         }
     }
