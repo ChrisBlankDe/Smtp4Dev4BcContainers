@@ -2,7 +2,7 @@
     param([String]$Image, [switch]$MultiTenant)
     $ContainerCred = New-Object System.Management.Automation.PSCredential ("Admin", (ConvertTo-SecureString "Start2018" -AsPlainText -Force))
     New-NavContainer -accept_eula -containerName test -imageName $Image -Credential $ContainerCred -multitenant:$MultiTenant #| Select-WriteHost -Quiet
-    Set-Smtp4DevInBcContainer -ContainerName test
+    Set-Smtp4DevInBcContainer -ContainerName test -Force
 }
 function Select-WriteHost {
     #Src: https://latkin.org/blog/2012/04/25/how-to-capture-or-redirect-write-host-output-in-powershell/
