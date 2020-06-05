@@ -13,7 +13,7 @@ Sets the smtp4dev connection data in the given container
 ## SYNTAX
 
 ```
-Set-Smtp4DevInBcContainer [[-ContainerName] <String>] [<CommonParameters>]
+Set-Smtp4DevInBcContainer [[-ContainerName] <String>] [-Force] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -46,6 +46,21 @@ Required: False
 Position: 1
 Default value: Navserver
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Force
+Avoid asking if Server Instances should be restarted, just do it.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
