@@ -37,8 +37,8 @@ function New-Smtp4DevContainer {
     )
     process {
         #region CheckIfNavContainerHelperIsInstalled
-        if (-not (Get-InstalledModule -Name navcontainerhelper -ErrorAction SilentlyContinue)) {
-            Write-Error "navcontainerhelper is not installed." -ErrorAction Stop
+        if (-not (Get-InstalledModule -Name bccontainerhelper -ErrorAction SilentlyContinue)) {
+            Write-Error "bccontainerhelper is not installed." -ErrorAction Stop
         }
         #endregion CheckIfNavContainerHelperIsInstalled
 
